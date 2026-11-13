@@ -7,7 +7,7 @@ for i in range(1, n + 1):
     m = int(input("Podaj ilość ocen: "))
     oceny = []
     for j in range(1, m + 1):
-        ocena = float(input(f"Podaj ocene {j}: "))
+        ocena = float(input("Podaj ocene: "))
         oceny.append(ocena)
         uczniowie[imie] = oceny
 
@@ -22,4 +22,4 @@ for imie, oceny in uczniowie.items():
         najwyzsza_srednia = srednia
         najlepszy_uczen = imie
 
-print(f"Najlepszy: {imie} ({najwyzsza_srednia:.2f})")
+print(f"Najlepszy: {najlepszy_uczen} ({najwyzsza_srednia:.2f})")
