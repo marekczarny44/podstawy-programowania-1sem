@@ -1,24 +1,43 @@
-def pobierz_produkty(nazwa, kategoria, cena):
-    produkty = (nazwa, kategoria, cena)
+def pobierz_produkty():
+    produkty = []
+    while True:
+        linia = input("Podaj produkty: ").lower()
+        if linia.strip().startswith("koniec"):
+            break
+
+        pola = [p.strip() for p in linia.split(",")]
+
+        if len(pola) != 3 or not pola[2].replace(".", "", 1).isdigit():
+            print(f"Błędny format: {linia}")
+            continue
+        else:
+            nazwa = pola[0]
+            kategoria = pola[1]
+            cena = pola[2]
+            produkty.append(tuple(nazwa, kategoria, cena)) #naprawić to, krotka powinna być dodawana do tablicy
+    return produkty
 
 def utworz_slownik_kategorii(produkty):
-    pass
+    slownik = {}
+    for nazwa, kategoria, cena in produkty:
+        if kategoria not in slownik:
+            slownik[kategoria] = []
+    #słownik ma mapować kategoria->lista nazw produktów, więc do listy dodać samą nazwę (bez ceny)
+    return slownik
 
-def wyswietl_kategorie(slownik, kategorie):
-    pass
+def wyswietl_kategorie(slownik, kategoria):
+    if kategoria in slownik:
+        "".join(slownik[kategoria])
+        print(f"Produkty w kategorii {kategoria}: {polaczone_nazwy}") # do zrobienia polaczone_nazwy
+    else:
+        print("Brak produktów w kategorii")
 
 def main():
-    pass
+    produkty = pobierz_produkty()
+    print(f"Wczytano produktów: {len(produkty)}")
+    slownik = utworz_slownik_kategorii(produkty)
+    szukana_kategoria = input("Podaj nazwę kategorii: ").strip()
+    wyswietl_kategorie(slownik, szukana_kategoria)
 
-# chuj wie czy to wszystko poniżej nie powinno być w funkcji main()
-# tu (albo w mainie) powinien być tylko while, który od razu wysyła wpisane pola do funkcji pobierz_produkty() która sprawdza poprawność linijek
-while True:
-    linia = input("Podaj produkty: ")
-    if linia.startswith("koniec"):
-        break
-    pola = [p.strip() for p in linia.split(",")]
-
-    if len(pola) != 3 or not pola[2].replace(".","",1).isdigit():
-        print(f"Błędny format: {linia}")
-    else:
-        pobierz_produkty(pola[0], pola[1], pola[2])
+if __name__ == '__main__':
+    main()
